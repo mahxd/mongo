@@ -1,1 +1,3 @@
-# mongo
+# mongoDB
+
+script for better using mongoDB
