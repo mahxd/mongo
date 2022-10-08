@@ -169,19 +169,21 @@ volumes:
 sudo docker-compose up -d 
 
 
-echo 'use this uri:
-mongodb://admin:admin@mongo2:27012,mongo1:27011/db-name?replicaSet=rs0
+echo 'To use locally add record to your hosts
+echo "127.0.0.1 mongo1 mongo2 mongo3" | sudo tee -a /etc/hosts
 
-connect shell by:
-mongo "mongodb://admin:admin@mongo2:27012,mongo1:27011/?replicaSet=rs0"
+use this uri:
+mongodb://admin:admin@mongo1:27011,mongo2:27012,mongo3:27013/db-name?replicaSet=rs0
 
-mongodump --uri="mongodb://admin:admin@mongo2:27012,mongo1:27011/?replicaSet=rs0" [additional options]
+connect with container shell:
+docker exec -it localmongo1 mongo "mongodb://admin:admin@mongo1:27011,mongo2:27012,mongo3:27013/?replicaSet=rs0"
 
-mongorestore --uri="mongodb://admin:admin@mongo2:27012,mongo1:27011/?replicaSet=rs0" [additional options]
+connect local mongo shell by:
+mongo "mongodb://admin:admin@mongo1:27011,mongo2:27012,mongo3:27013/?replicaSet=rs0"
 
-or like:
+mongodump --uri="mongodb://admin:admin@mongo1:27011,mongo2:27012,mongo3:27013/?replicaSet=rs0" [additional options]
 
-docker exec -it localmongo1 mongo "mongodb://admin:admin@mongo2:27012,mongo1:27011/?replicaSet=rs0"
+mongorestore --uri="mongodb://admin:admin@mongo1:27011,mongo2:27012,mongo3:27013/?replicaSet=rs0" [additional options]
 
 ...
 '
